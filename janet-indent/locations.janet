@@ -77,11 +77,17 @@
                         :table
                         :struct)
     #
-    :number (cmt (capture (sequence (line) (column)
-                                    (drop (cmt
-                                            (capture (some :name-char))
-                                            ,scan-number))))
+    :number (cmt 
+              (capture 
+                (sequence 
+                  (line) (column)
+                  (drop (sequence (cmt (capture (some :num-char))
+                                       ,scan-number)
+                                  (opt (sequence ":" (range "AZ" "az")))))))
                  ,|[:number $2 $0 $1])
+    #
+    :num-char (choice (range "09" "AZ" "az")
+                      (set "&+-._"))
     #
     :name-char (choice (range "09" "AZ" "az" "\x80\xFF")
                        (set "!$%&*+-./:<?=>@^_"))
@@ -100,7 +106,7 @@
                  ,|[:buffer $2 $0 $1])
     #
     :escape (sequence "\\"
-                      (choice (set "0efnrtvz\"\\")
+                      (choice (set `"'0?\abefnrtvz`)
                               (sequence "x" [2 :hex])
                               (sequence "u" [4 :hex])
                               (sequence "U" [6 :hex])
@@ -209,6 +215,18 @@
   (peg/match loc-grammar "1")
   # =>
   '@[(:number "1" 1 1)]
+
+  (peg/match loc-grammar "1:u")
+  # =>
+  '@[(:number "1:u" 1 1)]
+
+  (peg/match loc-grammar "-21:s")
+  # =>
+  '@[(:number "-21:s" 1 1)]
+
+  (peg/match loc-grammar "3e9:n")
+  # =>
+  '@[(:number "3e9:n" 1 1)]
 
   (peg/match loc-grammar "(+ 1 1)")
   # =>
