@@ -1,4 +1,4 @@
-(import ./vendor/janet-delims/janet-delims/delims :as delims)
+(import ./janet-delims/janet-delims :as delims)
 (import ./locations :as loc)
 
 (defn deprintf

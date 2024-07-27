@@ -1,5 +1,5 @@
-(import ./vendor/jandent/jandent/indent :as fmt)
-(import ./vendor/janet-delims/janet-delims/delims :as delims)
+(import ./jandent/jandent/indent :as fmt)
+(import ./janet-delims/janet-delims :as delims)
 
 (defn deprintf
   [fmt & args]
