@@ -6,7 +6,7 @@
 [subrepo]
 	remote = https://github.com/sogaiu/jandent
 	branch = master
-	commit = 83277b0b5d3a59b5a76ea8b3bd989c9679710510
-	parent = f78a278a0962f3b1cfb798dfea864cc21cb2dc56
+	commit = 0e498d75bf16ba54abe3370459cd5da0c3180f20
+	parent = e114c62856c0040c89e158ca95a65e0c40f04041
 	method = merge
 	cmdver = 0.4.9
